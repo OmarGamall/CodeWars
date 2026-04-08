@@ -1,0 +1,37 @@
+Step 1: Normalize the InputConvert
+    every "HH:MM" string into a single integer representing the total minutes
+    elapsed since the start of the day (00:00).
+    Formula: Total Minutes = (Hours\60) + Minutes
+    Example: "01:20" becomes 80, and "23:00" becomes 1380.
+
+Step 2: Clean the Data
+    Remove any duplicate times from the list. Since the alarm rings for the same minute 
+    regardless of how many times it's set for that exact moment, duplicates don't create new intervals.
+
+Step 3: Sort the Timeline
+    Sort the unique minute values in descending order (from the latest time in the day to the earliest).
+    Example sorted list: [1380, 1085, 384, 262] (representing 23:00, 18:05, 06:24, and 04:22).
+
+Step 4: Calculate "Linear" Gaps
+    Iterate through the sorted list and calculate the difference between each pair of adjacent alarms. 
+    Because each alarm lasts for 1 minute, you must subtract 1 additional minute from the difference 
+    to get the "quiet time.
+    Gap formula: Current Alarm - Next Alarm - 1 
+    Keep track of the largest value found during this loop (MaxDiff).
+
+Step 5: Solve the "Midnight Wrap-Around"
+    This is the most critical step. There is a gap between the earliest alarm of the day and the latest
+    alarm of the day that crosses the midnight boundary
+    
+    To find this gap:
+    1. Calculate the minutes from the Latest Alarm to Midnight (1440 - Latest).
+    2. Add the minutes from Midnight to the Earliest Alarm (+Earliest).
+    3. Subtract the 1 minute duration of the alarm.
+    Wrap-Around Formula: (1440 - Latest) + Earliest - 1
+Compare this result to your current MaxDiff and update it if the wrap-around gap is larger.
+
+Step 6: Format the Result
+    Take the final MaxDiff (which is in total minutes) and convert it back into the "HH:MM" string format.
+    Hours = MaxDiff / 60 , Minutes = MaxDiff % 60 
+    Ensure you pad with leading zeros (e.g., 09:05 instead of 9:5).
+

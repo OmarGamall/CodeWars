@@ -1,0 +1,16 @@
+### IntelliJ IDEA ###
+**/.idea/
+**/cmake-build-*/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Eclipse ###
+**/.settings/
+**/.classpath
+**/.project
+**/.factorypath
+
+### VS Code ###
+**/.vscode/
