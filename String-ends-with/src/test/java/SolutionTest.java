@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-pubilic class SolutionTest {
+public class SolutionTest {
     @Test
     public void staticTests() {
         check("samurai", "ai", true);
